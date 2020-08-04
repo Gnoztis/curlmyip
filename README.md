@@ -1,3 +1,3 @@
 # What is my IP address? (curlmyip)
 
-Use curlmyip.ru for get IP
+Use curlmyip.ru for get IT!

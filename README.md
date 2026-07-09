@@ -48,7 +48,7 @@ curl curlmyip.ru/geo   # Get geo location (JSON)
 
 ### Programmatic usage
 
-Full examples for various programming languages (Bash, Python, Node.js, PHP, Go, Ruby, Delphi) are available in the [`examples/`](examples/) directory and the [`delphi/`](delphi/) folder.  
+Full examples for various programming languages (Bash, Python, Node.js, PHP, Go, Ruby, Delphi) are available in the [`examples/`](examples/) directory.  
 Each example shows how to fetch IP, User-Agent, and geo data.
 
 ---
@@ -90,5 +90,5 @@ curl curlmyip.ru/geo   # Получить геоданные (JSON)
 
 ### Использование в программах
 
-Полные примеры для различных языков программирования (Bash, Python, Node.js, PHP, Go, Ruby, Delphi) доступны в папке [`examples/`](examples/) и [`delphi/`](delphi/).  
+Полные примеры для различных языков программирования (Bash, Python, Node.js, PHP, Go, Ruby, Delphi) доступны в папке [`examples/`](examples/).  
 Каждый пример показывает, как получить IP, User-Agent и геоданные.

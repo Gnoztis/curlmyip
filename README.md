@@ -1,7 +1,7 @@
 ﻿# curlmyip - What is my IP address? / curlmyip - Какой у меня IP-адрес?
 
-Simple public service to get your external IP, User-Agent, language, headers and current Unix time.  
-Простой публичный сервис для получения внешнего IP-адреса, User-Agent, языка, заголовков и текущего времени Unix.
+Simple public service to get your external IP, User-Agent, language, headers, current Unix time and **geo location** (city, country, coordinates, timezone, ASN).  
+Простой публичный сервис для получения внешнего IP-адреса, User-Agent, языка, заголовков, текущего времени Unix и **геоданных** (город, страна, координаты, часовой пояс, ASN).
 
 > **Source code & self-hosting** | **Исходный код и самостоятельный хостинг**  
 > [https://github.com/Gnoztis/curlmyip](https://github.com/Gnoztis/curlmyip)
@@ -20,6 +20,7 @@ Simple public service to get your external IP, User-Agent, language, headers and
 - See your `Accept-Language` preferences (`/lang`)
 - Obtain the current Unix timestamp from the server (`/time`)
 - Inspect all HTTP headers your client sends in JSON format (`/headers`)
+- **New!** Get detailed geo location information for your IP (`/geo`) – city, country, coordinates, time zone, autonomous system, etc.
 - Works over both HTTP and HTTPS
 - No registration, no API keys, no limits (fair use)
 
@@ -33,83 +34,22 @@ Simple public service to get your external IP, User-Agent, language, headers and
 | `/lang`    | `Accept-Language` header value | `ru,en-US;q=0.7,en;q=0.3` |
 | `/time`    | Server time as Unix timestamp | `1741594272` |
 | `/headers` | All incoming headers (JSON) | `{"host":"curlmyip.ru","user-agent":"curl/8.4.0",...}` |
+| `/geo`     | Geo location data for your IP (JSON) | `{"ip":"91.23.25.9","city":{...},"country":{...},...}` |
 
-### Quick command-line examples
+### Quick command-line examples (using `curl`)
 
-```bash
+```
 curl curlmyip.ru       # IP with newline
 curl curlmyip.ru/ip    # IP without newline
 curl curlmyip.ru/ua    # Show your User-Agent
 curl curlmyip.ru/time  # Get current Unix time
+curl curlmyip.ru/geo   # Get geo location (JSON)
 ```
 
-### Usage in scripts
+### Programmatic usage
 
-#### Bash (`get_my_ip.sh`)
-```bash
-#!/bin/bash
-BASE_URL="http://curlmyip.ru"
-MY_IP=$(curl -s "${BASE_URL}/ip")
-echo "Your IP: ${MY_IP}"
-MY_UA=$(curl -s "${BASE_URL}/ua")
-echo "Your User-Agent: ${MY_UA}"
-```
-
-#### Python (`get_my_ip.py`)
-```python
-import requests
-BASE_URL = "http://curlmyip.ru"
-def get_text(endpoint):
-    resp = requests.get(f"{BASE_URL}{endpoint}", timeout=5)
-    return resp.text.strip()
-print("Your IP:", get_text("/ip"))
-print("Your User-Agent:", get_text("/ua"))
-```
-
-#### Node.js (`getMyIp.js`)
-```javascript
-const axios = require('axios');
-const BASE_URL = 'http://curlmyip.ru';
-(async () => {
-    const { data: ip } = await axios.get(`${BASE_URL}/ip`);
-    console.log(`Your IP: ${ip}`);
-    const { data: ua } = await axios.get(`${BASE_URL}/ua`);
-    console.log(`Your User-Agent: ${ua}`);
-})();
-```
-
-#### PHP (`get_my_ip.php`)
-```php
-<?php
-$base = "http://curlmyip.ru";
-echo "Your IP: " . trim(file_get_contents("$base/ip")) . PHP_EOL;
-echo "Your UA: " . trim(file_get_contents("$base/ua")) . PHP_EOL;
-```
-
-#### Go (`getmyip.go`)
-```go
-package main
-import (
-    "fmt"
-    "io"
-    "net/http"
-)
-const baseURL = "http://curlmyip.ru"
-func main() {
-    resp, _ := http.Get(baseURL + "/ip")
-    body, _ := io.ReadAll(resp.Body)
-    resp.Body.Close()
-    fmt.Printf("Your IP: %s", body)
-}
-```
-
-#### Ruby (`get_my_ip.rb`)
-```ruby
-require 'net/http'
-BASE_URL = 'http://curlmyip.ru'
-puts "Your IP: #{Net::HTTP.get(URI("#{BASE_URL}/ip")).strip}"
-puts "Your UA: #{Net::HTTP.get(URI("#{BASE_URL}/ua")).strip}"
-```
+Full examples for various programming languages (Bash, Python, Node.js, PHP, Go, Ruby, Delphi) are available in the [`examples/`](examples/) directory and the [`delphi/`](delphi/) folder.  
+Each example shows how to fetch IP, User-Agent, and geo data.
 
 ---
 
@@ -122,6 +62,7 @@ puts "Your UA: #{Net::HTTP.get(URI("#{BASE_URL}/ua")).strip}"
 - Просмотр языковых предпочтений (`Accept-Language`) (`/lang`)
 - Получение текущей метки времени Unix с сервера (`/time`)
 - Просмотр всех HTTP-заголовков, которые отправляет ваш клиент, в формате JSON (`/headers`)
+- **Новое!** Получение подробной геолокации для вашего IP (`/geo`) – город, страна, координаты, часовой пояс, автономная система и др.
 - Поддержка HTTP и HTTPS
 - Без регистрации, без API-ключей, без ограничений (при разумном использовании)
 
@@ -135,80 +76,19 @@ puts "Your UA: #{Net::HTTP.get(URI("#{BASE_URL}/ua")).strip}"
 | `/lang`   | Значение заголовка `Accept-Language` | `ru,en-US;q=0.7,en;q=0.3` |
 | `/time`   | Время сервера в формате Unix timestamp | `1741594272` |
 | `/headers`| Все входящие заголовки в JSON | `{"host":"curlmyip.ru","user-agent":"curl/8.4.0",...}` |
+| `/geo`    | Геоданные для вашего IP в JSON | `{"ip":"91.23.25.9","city":{...},"country":{...},...}` |
 
-### Быстрые примеры через командную строку
+### Быстрые примеры через командную строку (`curl`)
 
-```bash
+```
 curl curlmyip.ru       # IP с переводом строки
 curl curlmyip.ru/ip    # IP без перевода строки
 curl curlmyip.ru/ua    # Показать ваш User-Agent
 curl curlmyip.ru/time  # Показать текущий Unix timestamp
+curl curlmyip.ru/geo   # Получить геоданные (JSON)
 ```
 
-### Использование в скриптах
+### Использование в программах
 
-#### Bash (`get_my_ip.sh`)
-```bash
-#!/bin/bash
-BASE_URL="http://curlmyip.ru"
-MY_IP=$(curl -s "${BASE_URL}/ip")
-echo "Ваш IP: ${MY_IP}"
-MY_UA=$(curl -s "${BASE_URL}/ua")
-echo "Ваш User-Agent: ${MY_UA}"
-```
-
-#### Python (`get_my_ip.py`)
-```python
-import requests
-BASE_URL = "http://curlmyip.ru"
-def get_text(endpoint):
-    resp = requests.get(f"{BASE_URL}{endpoint}", timeout=5)
-    return resp.text.strip()
-print("Ваш IP:", get_text("/ip"))
-print("Ваш User-Agent:", get_text("/ua"))
-```
-
-#### Node.js (`getMyIp.js`)
-```javascript
-const axios = require('axios');
-const BASE_URL = 'http://curlmyip.ru';
-(async () => {
-    const { data: ip } = await axios.get(`${BASE_URL}/ip`);
-    console.log(`Ваш IP: ${ip}`);
-    const { data: ua } = await axios.get(`${BASE_URL}/ua`);
-    console.log(`Ваш User-Agent: ${ua}`);
-})();
-```
-
-#### PHP (`get_my_ip.php`)
-```php
-<?php
-$base = "http://curlmyip.ru";
-echo "Ваш IP: " . trim(file_get_contents("$base/ip")) . PHP_EOL;
-echo "Ваш UA: " . trim(file_get_contents("$base/ua")) . PHP_EOL;
-```
-
-#### Go (`getmyip.go`)
-```go
-package main
-import (
-    "fmt"
-    "io"
-    "net/http"
-)
-const baseURL = "http://curlmyip.ru"
-func main() {
-    resp, _ := http.Get(baseURL + "/ip")
-    body, _ := io.ReadAll(resp.Body)
-    resp.Body.Close()
-    fmt.Printf("Ваш IP: %s", body)
-}
-```
-
-#### Ruby (`get_my_ip.rb`)
-```ruby
-require 'net/http'
-BASE_URL = 'http://curlmyip.ru'
-puts "Ваш IP: #{Net::HTTP.get(URI("#{BASE_URL}/ip")).strip}"
-puts "Ваш UA: #{Net::HTTP.get(URI("#{BASE_URL}/ua")).strip}"
-```
+Полные примеры для различных языков программирования (Bash, Python, Node.js, PHP, Go, Ruby, Delphi) доступны в папке [`examples/`](examples/) и [`delphi/`](delphi/).  
+Каждый пример показывает, как получить IP, User-Agent и геоданные.

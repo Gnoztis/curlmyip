@@ -3,9 +3,6 @@
 Simple public service to get your external IP, User-Agent, language, headers, current Unix time and **geo location** (city, country, coordinates, timezone, ASN).  
 Простой публичный сервис для получения внешнего IP-адреса, User-Agent, языка, заголовков, текущего времени Unix и **геоданных** (город, страна, координаты, часовой пояс, ASN).
 
-> **Source code & self-hosting** | **Исходный код и самостоятельный хостинг**  
-> [https://github.com/Gnoztis/curlmyip](https://github.com/Gnoztis/curlmyip)
-
 > **Usage examples & detailed guide** | **Примеры использования и подробное руководство**  
 > [https://1275.ru/articles/curlmyip-ru-sluzhba-opredeleniya-vneshnego-ip_9902](https://1275.ru/articles/curlmyip-ru-sluzhba-opredeleniya-vneshnego-ip_9902)
 
